@@ -1,8 +1,12 @@
-#if defined(TARGET_STM32F4)
+#if defined(TARGET_STM32F4) || defined(_86DUINO)
 
 #include <Arduino.h>
 #include <EthernetUdp.h>
+
+#ifdef TARGET_STM32F4
 #include <STM32Ethernet.h>
+#endif
+
 #include <micro_ros_arduino.h>
 #endif
 
@@ -16,7 +20,7 @@
 #include <micro_ros_arduino.h>
 #endif
 
-#if defined(TARGET_STM32F4) || defined(ARDUINO_TEENSY41) || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_OPTA)
+#if defined(TARGET_STM32F4) || defined(ARDUINO_TEENSY41) || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_OPTA) || defined(_86DUINO)
 extern "C" {
 
 #include <stdbool.h>

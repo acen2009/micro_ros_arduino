@@ -40,12 +40,20 @@ static inline void set_microros_transports(){
 	);
 }
 
-#if defined(TARGET_STM32F4)
+#if defined(TARGET_STM32F4) || defined(_86DUINO)
 
 #include <Arduino.h>
+
+#ifdef _86DUINO
+#include <Ethernet.h>
+#endif
+
 #include <EthernetUdp.h>
+
+#ifdef TARGET_STM32F4
 #include <LwIP.h>
 #include <STM32Ethernet.h>
+#endif
 
 #include <uxr/client/transport.h>
 #include <rmw_microros/rmw_microros.h>
@@ -60,7 +68,7 @@ static inline void set_microros_transports(){
 #include <PortentaEthernet.h>
 #endif
 
-#if defined(TARGET_STM32F4) || defined(ARDUINO_TEENSY41)  || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_OPTA)
+#if defined(TARGET_STM32F4) || defined(ARDUINO_TEENSY41)  || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_OPTA) || defined(_86DUINO)
 extern "C" bool arduino_native_ethernet_udp_transport_open(struct uxrCustomTransport * transport);
 extern "C" bool arduino_native_ethernet_udp_transport_close(struct uxrCustomTransport * transport);
 extern "C" size_t arduino_native_ethernet_udp_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
@@ -124,15 +132,6 @@ struct micro_ros_agent_locator {
 #endif
 
 static inline void set_microros_wifi_transports(char * ssid, char * pass, char * agent_ip, uint32_t agent_port){
-
-	#if defined(BOARD_WITH_ESP_AT)
-	ESP_AT_SERIAL_PORT.begin(ESP_AT_BAUDRATE);
-	while (!ESP_AT_SERIAL_PORT) {
-	}
-	WiFi.init(ESP_AT_SERIAL_PORT, ESP_AT_RESET_PIN);
-	while (WiFi.status() == WL_NO_MODULE) {
-	}
-	#endif
 
 	WiFi.begin(ssid, pass);
 
