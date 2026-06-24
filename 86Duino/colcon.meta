@@ -1,0 +1,72 @@
+{
+    "names": {
+        "tracetools": {
+            "cmake-args": [
+                "-DTRACETOOLS_DISABLED=ON",
+                "-DTRACETOOLS_STATUS_CHECKING_TOOL=OFF"
+            ]
+        },
+        "rosidl_typesupport": {
+            "cmake-args": [
+                "-DROSIDL_TYPESUPPORT_SINGLE_TYPESUPPORT=ON"
+            ]
+        },
+        "rcl": {
+            "cmake-args": [
+                "-DBUILD_TESTING=OFF",
+                "-DRCL_COMMAND_LINE_ENABLED=OFF",
+                "-DRCL_LOGGING_ENABLED=OFF",
+                "-DRMW_IMPLEMENTATION=rmw_microxrcedds"
+            ]
+        },
+        "rcutils": {
+            "cmake-args": [
+                "-DENABLE_TESTING=OFF",
+                "-DRCUTILS_NO_FILESYSTEM=ON",
+                "-DRCUTILS_NO_THREAD_SUPPORT=ON",
+                "-DRCUTILS_NO_64_ATOMIC=ON",
+                "-DRCUTILS_AVOID_DYNAMIC_ALLOCATION=ON"
+            ]
+        },
+        "microxrcedds_client": {
+            "cmake-args": [
+                "-DUCLIENT_PIC=OFF",
+                "-DUCLIENT_PROFILE_UDP=OFF",
+                "-DUCLIENT_PROFILE_TCP=OFF",
+                "-DUCLIENT_PROFILE_SERIAL=OFF",
+                "-DUCLIENT_PROFILE_CAN=OFF",
+                "-DUCLIENT_PROFILE_DISCOVERY=OFF",
+                "-DUCLIENT_PROFILE_MULTITHREAD=OFF",
+                "-DUCLIENT_PROFILE_SHARED_MEMORY=OFF",
+                "-DUCLIENT_PROFILE_CUSTOM_TRANSPORT=ON",
+                "-DUCLIENT_SUPERBUILD=OFF",
+                "-DUCLIENT_MAX_OUTPUT_BEST_EFFORT_STREAMS=4",
+                "-DUCLIENT_MAX_OUTPUT_RELIABLE_STREAMS=4",
+                "-DUCLIENT_MAX_INPUT_BEST_EFFORT_STREAMS=4",
+                "-DUCLIENT_MAX_INPUT_RELIABLE_STREAMS=4"
+            ]
+        },
+        "rmw_implementation": {
+            "cmake-args": [
+                "-DRMW_IMPLEMENTATION=rmw_microxrcedds",
+                "-DRMW_IMPLEMENTATION_DISABLE_RUNTIME_SELECTION=ON",
+                "-DCMAKE_DISABLE_FIND_PACKAGE_rmw_fastrtps_cpp=ON",
+                "-DCMAKE_DISABLE_FIND_PACKAGE_rmw_fastrtps_c=ON",
+                "-DCMAKE_DISABLE_FIND_PACKAGE_rmw_cyclonedds_cpp=ON",
+                "-DCMAKE_DISABLE_FIND_PACKAGE_rmw_connextdds=ON"
+            ]
+        },
+        "rmw_microxrcedds": {
+            "cmake-args": [
+                "-DRMW_UXRCE_TRANSPORT=custom",
+                "-DRMW_UXRCE_MAX_NODES=4",
+                "-DRMW_UXRCE_MAX_PUBLISHERS=10",
+                "-DRMW_UXRCE_MAX_SUBSCRIPTIONS=5",
+                "-DRMW_UXRCE_MAX_SERVICES=4",
+                "-DRMW_UXRCE_MAX_CLIENTS=4",
+                "-DRMW_UXRCE_MAX_HISTORY=4",
+                "-DRMW_UXRCE_STREAM_HISTORY=32"
+            ]
+        }
+    }
+}
