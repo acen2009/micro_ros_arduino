@@ -13,7 +13,7 @@ extern "C"
   size_t arduino_transport_read(struct uxrCustomTransport * transport, uint8_t *buf, size_t len, int timeout, uint8_t *errcode) __attribute__ ((weak));
 
   #define micro_rollover_useconds 4294967295
-
+  
   int clock_gettime(clockid_t unused, struct timespec *tp)
   {
     (void)unused;
@@ -23,7 +23,7 @@ extern "C"
     uint32_t m = micros();
     rollover += (m < last_measure) ? 1 : 0;
 
-    uint64_t real_us = (uint64_t) (m + rollover * micro_rollover_useconds);
+    uint64_t real_us = timer_GetClocks64()/CLOCKS_PER_MICROSEC;
     tp->tv_sec = real_us / 1000000;
     tp->tv_nsec = (real_us % 1000000) * 1000;
     last_measure = m;
@@ -33,7 +33,7 @@ extern "C"
 
   bool arduino_transport_open(struct uxrCustomTransport * transport)
   {
-    Serial.begin(115200);
+    Serial.begin(3000000);
     return true;
   }
 
