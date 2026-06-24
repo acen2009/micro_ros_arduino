@@ -212,3 +212,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+# 86Duino DJGPP toolchain — auto-downloaded by library_generation.sh on `-p 86duino`,
+# not committed (too large). See 86Duino/djgpp_toolchain.cmake.
+86Duino/djgpp/

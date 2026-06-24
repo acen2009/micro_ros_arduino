@@ -97,6 +97,7 @@ geometry_msgs/TwistWithCovarianceStamped.msg
 geometry_msgs/Vector3.msg
 geometry_msgs/Vector3Stamped.msg
 geometry_msgs/VelocityStamped.msg
+geometry_msgs/VelocityWithCovarianceStamped.msg
 geometry_msgs/Wrench.msg
 geometry_msgs/WrenchStamped.msg
 lifecycle_msgs/ChangeState.srv
@@ -117,6 +118,8 @@ nav_msgs/OccupancyGrid.msg
 nav_msgs/Odometry.msg
 nav_msgs/Path.msg
 nav_msgs/SetMap.srv
+nav_msgs/Trajectory.msg
+nav_msgs/TrajectoryPoint.msg
 rcl_interfaces/DescribeParameters.srv
 rcl_interfaces/FloatingPointRange.msg
 rcl_interfaces/GetLoggerLevels.srv
@@ -138,7 +141,15 @@ rcl_interfaces/SetLoggerLevelsResult.msg
 rcl_interfaces/SetParameters.srv
 rcl_interfaces/SetParametersAtomically.srv
 rcl_interfaces/SetParametersResult.msg
+rosgraph_msgs/Action.msg
 rosgraph_msgs/Clock.msg
+rosgraph_msgs/Graph.msg
+rosgraph_msgs/InterfaceType.msg
+rosgraph_msgs/Node.msg
+rosgraph_msgs/QoSProfile.msg
+rosgraph_msgs/Service.msg
+rosgraph_msgs/Topic.msg
+rosgraph_msgs/TypeHash.msg
 rosidl_generator_tests/SmallConstant.msg
 sensor_msgs/BatteryState.msg
 sensor_msgs/CameraInfo.msg

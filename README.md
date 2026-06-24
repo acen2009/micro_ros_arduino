@@ -98,6 +98,36 @@ This should be used for example when adding custom messages types or custom micr
 
 You can [configure many parameters](https://micro.ros.org/docs/tutorials/advanced/microxrcedds_rmw_configuration/) of the library by editing the respective `.meta` file in the `extras/library_generation/` directory.
 
+### Building for 86Duino (FreeDOS / Vortex86EX2)
+
+This fork adds support for the [86Duino](https://www.86duino.com/) platform, which targets a Vortex86EX2 SoC running FreeDOS and is cross-compiled with the [DJGPP](https://github.com/andrewwutw/build-djgpp) toolchain (GCC 8.3.0, i586/DOS COFF).
+
+Just run the same two Docker commands with the `86duino` target:
+
+```bash
+docker pull microros/micro_ros_static_library_builder:jazzy
+docker run -it --rm -v $(pwd):/project --env MICROROS_LIBRARY_FOLDER=extras microros/micro_ros_static_library_builder:jazzy -p 86duino
+```
+
+On the first run the build automatically downloads the DJGPP toolchain into `86Duino/djgpp/` (it is **not** committed to this repo and is cached there for later runs), applies the DJGPP-specific source patches in `86Duino/FixForDJGPPFiles/`, and produces the static library at:
+
+```
+src/86duino/libmicroros.a
+```
+
+The 86Duino-specific build configuration lives under the `86Duino/` directory:
+
+- `djgpp_toolchain.cmake` — CMake cross-compilation toolchain for DJGPP.
+- `colcon.meta` — micro-ROS RMW configuration for this target (custom transport, no threads/filesystem).
+- `FixForDJGPPFiles/` — source patches required to build on DJGPP/FreeDOS, with `README.txt` listing each file's upstream path.
+
+You can verify the resulting library was built with DJGPP by checking the embedded compiler string:
+
+```bash
+strings src/86duino/libmicroros.a | grep "GCC: (GNU)" | sort -u
+# -> GCC: (GNU) 8.3.0
+```
+
 ## Patch Arduino board for support precompiled libraries
 ### Patch Teensyduino
 
