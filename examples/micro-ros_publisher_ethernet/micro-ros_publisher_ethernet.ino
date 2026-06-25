@@ -1,3 +1,10 @@
+/*
+ * Test Commands:
+``` Bash
+ros2 topic echo /namespace/topic_name
+```
+*/
+
 #include <micro_ros_arduino.h>
 
 #include <stdio.h>
@@ -6,17 +13,6 @@
 #include <rclc/rclc.h>
 #include <rclc/executor.h>
 #include <std_msgs/msg/int32.h>
-
-#if !defined(TARGET_STM32F4) && !defined(ARDUINO_TEENSY41) && !defined(TARGET_PORTENTA_H7_M7) && !defined(ARDUINO_OPTA)
-#error This example is only available for Arduino Portenta, Arduino Teensy41, STM32F4 and Arduino OPTA
-#endif
-
-#if defined(ARDUINO_TEENSY41)
-void get_teensy_mac(uint8_t *mac) {
-    for(uint8_t by=0; by<2; by++) mac[by]=(HW_OCOTP_MAC1 >> ((1-by)*8)) & 0xFF;
-    for(uint8_t by=0; by<4; by++) mac[by+2]=(HW_OCOTP_MAC0 >> ((3-by)*8)) & 0xFF;
-}
-#endif
 
 rcl_publisher_t publisher;
 std_msgs__msg__Int32 msg;
@@ -37,15 +33,11 @@ void error_loop(){
 }
 
 void setup() {
-   byte arduino_mac[] = { 0xAA, 0xBB, 0xCC, 0xEE, 0xDD, 0xFF };
+  byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 
-  #if defined(ARDUINO_TEENSY41)
-  get_teensy_mac(arduino_mac);
-  #endif
-
-  IPAddress arduino_ip(192, 168, 1, 177);
-  IPAddress agent_ip(192, 168, 1, 113);
-  set_microros_native_ethernet_udp_transports(arduino_mac, arduino_ip, agent_ip, 9999);
+  IPAddress client_ip(192, 168, 3, 202);
+  IPAddress agent_ip(192, 168, 3, 59);
+  set_microros_native_ethernet_udp_transports(mac, client_ip, agent_ip, 9999);
 
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, HIGH);

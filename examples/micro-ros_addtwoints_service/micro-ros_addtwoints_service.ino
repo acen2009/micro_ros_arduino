@@ -1,3 +1,10 @@
+/*
+ * Test Commands:
+``` Bash
+ros2 service call /addtwoints example_interfaces/srv/AddTwoInts "{a: 2, b: 3}"
+```
+*/
+
 #include <micro_ros_arduino.h>
 #include <example_interfaces/srv/add_two_ints.h>
 #include <stdio.h>

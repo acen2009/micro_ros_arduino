@@ -1,3 +1,9 @@
+/*
+ * Test Commands:
+``` Bash
+ros2 topic echo /std_msgs_msg_Int32
+```
+*/
 #include <micro_ros_arduino.h>
 
 #include <stdio.h>

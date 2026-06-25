@@ -1,7 +1,7 @@
 #include <micro_ros_arduino.h>
 
 #include <stdio.h>
-#include <TimeLib.h>
+#include <RTCZero.h>
 #include <rcl/rcl.h>
 #include <rcl/error_handling.h>
 #include <rclc/rclc.h>
@@ -10,7 +10,8 @@
 rclc_support_t support;
 rcl_allocator_t allocator;
 
-#define HWSERIAL Serial1
+/* Create an rtc object */
+RTCZero rtc;
 
 #define LED_PIN 13
 
@@ -19,7 +20,7 @@ rcl_allocator_t allocator;
 
 const int timeout_ms = 1000;
 static int64_t time_ms;
-static time_t time_seconds;
+static uint32_t time_seconds;
 char time_str[25];
 
 void error_loop(){
@@ -30,8 +31,15 @@ void error_loop(){
 }
 
 void setup() {
-  set_microros_transports();
-  HWSERIAL.begin(115200); // Configure debug serial
+  // Ethernet MAC address
+  byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+  
+  // Configure micro-ROS UDP transport
+  IPAddress qec_ip(192, 168, 3, 202);
+  IPAddress agent_ip(192, 168, 3, 59);
+  set_microros_native_ethernet_udp_transports(mac, qec_ip, agent_ip, 9999);
+  Serial.begin(3000000); // Configure debug serial
+  rtc.begin(); // initialize RTC
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, HIGH);  
   
@@ -51,16 +59,16 @@ void loop() {
   if (time_ms > 0)
   {
     time_seconds = time_ms/1000;
-    setTime(time_seconds); 
-    sprintf(time_str, "%02d.%02d.%04d %02d:%02d:%02d.%03d", day(), month(), year(), hour(), minute(), second(), (uint) time_ms % 1000);
+    rtc.setEpoch(time_seconds); 
+    sprintf(time_str, "%02d.%02d.%04d %02d:%02d:%02d.%03d", rtc.getDay(), rtc.getMonth(), rtc.getYear(), rtc.getHours(), rtc.getMinutes(), rtc.getSeconds(), time_ms % 1000);
 
-    HWSERIAL.print("Agent date: ");
-    HWSERIAL.println(time_str);  
+    Serial.print("Agent date: ");
+    Serial.println(time_str);  
   }
   else
   {
-    HWSERIAL.print("Session sync failed, error code: ");
-    HWSERIAL.println((int) time_ms);  
+    Serial.print("Session sync failed, error code: ");
+    Serial.println((int) time_ms);  
   }
   
   delay(1001);
