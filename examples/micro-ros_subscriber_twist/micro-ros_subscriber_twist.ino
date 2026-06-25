@@ -1,3 +1,17 @@
+
+/*
+``` Bash
+while true; do
+  ros2 topic pub --once /micro_ros_arduino_twist_subscriber geometry_msgs/msg/Twist \
+    "{linear: {x: 0.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
+  sleep 1
+  ros2 topic pub --once /micro_ros_arduino_twist_subscriber geometry_msgs/msg/Twist \
+    "{linear: {x: 1.0, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 0.0}}"
+  sleep 1
+done 
+```
+ */
+
 #include <micro_ros_arduino.h>
 
 #include <stdio.h>

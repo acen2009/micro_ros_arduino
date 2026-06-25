@@ -1,3 +1,10 @@
+/*
+ * Test Commands:
+``` Bash
+ros2 topic echo /micro_ros_arduino_node_publisher
+```
+*/
+
 #include <micro_ros_arduino.h>
 
 #include <stdio.h>
