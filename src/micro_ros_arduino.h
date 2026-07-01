@@ -103,9 +103,9 @@ static inline void set_microros_native_ethernet_udp_transports(byte mac[], IPAdd
 
 #endif
 
-#if defined(ESP32) || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_GIGA) || defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_WIO_TERMINAL) || defined(BOARD_WITH_ESP_AT) || defined(ARDUINO_UNOR4_WIFI) || defined(ARDUINO_OPTA)
+#if defined(ESP32) || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_GIGA) || defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_WIO_TERMINAL) || defined(BOARD_WITH_ESP_AT) || defined(ARDUINO_UNOR4_WIFI) || defined(ARDUINO_OPTA) || defined(_86DUINO)
 
-#if defined(ESP32) || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_GIGA) || defined(ARDUINO_OPTA)
+#if defined(ESP32) || defined(TARGET_PORTENTA_H7_M7) || defined(ARDUINO_GIGA) || defined(ARDUINO_OPTA) || defined(_86DUINO)
 #include <WiFi.h>
 #include <WiFiUdp.h>
 #elif defined(ARDUINO_NANO_RP2040_CONNECT)
@@ -124,7 +124,7 @@ extern "C" bool arduino_wifi_transport_open(struct uxrCustomTransport * transpor
 extern "C" bool arduino_wifi_transport_close(struct uxrCustomTransport * transport);
 extern "C" size_t arduino_wifi_transport_write(struct uxrCustomTransport* transport, const uint8_t * buf, size_t len, uint8_t * err);
 extern "C" size_t arduino_wifi_transport_read(struct uxrCustomTransport* transport, uint8_t* buf, size_t len, int timeout, uint8_t* err);
-#if !defined(TARGET_PORTENTA_H7_M7) && !defined(ARDUINO_OPTA)
+#if !defined(TARGET_PORTENTA_H7_M7) && !defined(ARDUINO_OPTA) && !defined(_86DUINO)
 struct micro_ros_agent_locator {
 	IPAddress address;
 	int port;
